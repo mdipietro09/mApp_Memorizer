@@ -10,6 +10,10 @@ ScreenManager:
 <IntroScreen>:
     name: 'intro'
 
+    Image:
+        source: "static/logo.png"
+        pos_hint: {'center_x':0.5, 'center_y':0.9}
+
     MDLabel:
         text: 'Hello,\nyou are here to\nmemorize something'
         halign: 'center'
@@ -18,7 +22,7 @@ ScreenManager:
     MDFillRoundFlatButton:
         text: 'Start'
         md_bg_color: 'black'
-        pos_hint: {'center_x':0.5, 'center_y':0.4}
+        pos_hint: {'center_x':0.5, 'center_y':0.3}
         on_press: root.manager.current = 'home'
 
 
@@ -150,10 +154,10 @@ ScreenManager:
         pos_hint: {'center_x':0.5, 'center_y':0.9}
         on_press: root.manager.current = 'home'
 
-    #MDIconButton:
-    #    icon: "db-circle"
-    #    pos_hint: {'center_x':0.5, 'center_y':0.7}
-    #    on_press: root.manager.current = 'home'
+    MDIconButton:
+        icon: "database"
+        pos_hint: {'center_x':0.3, 'center_y':0.8}
+        on_press: app.edit()
 
     #MDFloatingActionButtonSpeedDial:
     #    data: app.data

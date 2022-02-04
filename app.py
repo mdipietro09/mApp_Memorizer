@@ -8,11 +8,14 @@ warnings.filterwarnings("ignore")
 
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
+from kivy.metrics import dp
 
 from kivymd.app import MDApp
+from kivymd.uix.datatables import MDDataTable
 
 import sqlite3  
 import random
+
 
 
 # app
@@ -55,13 +58,28 @@ class App(MDApp):
         left = self.root.get_screen('save').ids.left_input.text
         right = self.root.get_screen('save').ids.right_input.text
         q = f"INSERT INTO SAVED VALUES('{category}','{left}','{right}')"
-        print(">>>", q)
         self.query_db(q)
 
 
     ## edit
-    
+    def edit(self):
+        category = "1"
+        q = f"SELECT left,right FROM SAVED WHERE category=={category}"
+        lst_tuples_rows = self.query_db(q, data=True)
+        table = MDDataTable(column_data=[("",dp(20)), ("",dp(20))], row_data=lst_tuples_rows,
+                            size_hint=(0.9, 0.6), pos_hint={'center_x':0.5, 'center_y':0.4},
+                            check=True, use_pagination=True, rows_num=20)
+        table.bind(on_check_press=self.checked)
+        table.bind(on_row_press=self.row_checked)
+        self.root.get_screen('edit').add_widget(table)
 
+    def checked(self, table, row):
+        print(table)
+        print(row)
+
+    def row_checked(self, table, row):
+        print(table)
+        print(row)
 
 
 
@@ -81,6 +99,7 @@ class SaveScreen(Screen):
 
 class EditScreen(Screen):
     pass
+
 
 
 ########################## Run ##########################
