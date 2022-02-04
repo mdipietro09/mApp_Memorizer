@@ -1,1 +1,1 @@
-# mApp_Memorizer
+# Kivy App for Memorizing stuff

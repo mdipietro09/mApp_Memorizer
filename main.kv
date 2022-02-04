@@ -1,0 +1,161 @@
+ScreenManager:
+    IntroScreen:
+    HomeScreen:
+    PlayScreen:
+    SaveScreen:
+    EditScreen:
+
+
+############################ INTRO #######################################
+<IntroScreen>:
+    name: 'intro'
+
+    MDLabel:
+        text: 'Hello,\nyou are here to\nmemorize something'
+        halign: 'center'
+        pos_hint: {'center_x':0.5, 'center_y':0.6}
+
+    MDFillRoundFlatButton:
+        text: 'Start'
+        md_bg_color: 'black'
+        pos_hint: {'center_x':0.5, 'center_y':0.4}
+        on_press: root.manager.current = 'home'
+
+
+############################ HOME #######################################
+<HomeScreen>:
+    name: 'home'
+
+    MDIcon:
+        icon: "home"
+        halign: 'center'
+        pos_hint: {'center_x':0.5, 'center_y':0.9}
+
+    MDRectangleFlatButton:
+        text: "Play"
+        theme_text_color: "Custom"
+        text_color: "black"
+        line_color: "black"
+        pos_hint: {'center_x':0.5, 'center_y':0.6}
+        on_press: root.manager.current = 'play'
+
+    MDRectangleFlatButton:
+        text: "Save"
+        theme_text_color: "Custom"
+        text_color: "black"
+        line_color: "black"
+        pos_hint: {'center_x':0.5, 'center_y':0.4}
+        on_press: root.manager.current = 'save'
+
+    MDRectangleFlatButton:
+        text: "Edit"
+        theme_text_color: "Custom"
+        text_color: "black"
+        line_color: "black"
+        pos_hint: {'center_x':0.5, 'center_y':0.2}
+        on_press: root.manager.current = 'edit'
+
+
+############################ PLAY #######################################
+<PlayScreen>:
+    name: 'play'
+
+    MDIconButton:
+        icon: "home"
+        pos_hint: {'center_x':0.5, 'center_y':0.9}
+        on_press: root.manager.current = 'home'
+
+    MDLabel:
+        id: question
+        text: "Push the right button to start\n(left one shows the answer)"
+        halign: 'center'
+        pos_hint: {'center_x':0.5, 'center_y':0.7}
+
+    MDLabel:
+        id: answer
+        theme_text_color: "Error"
+        halign: 'center'
+        pos_hint: {'center_x':0.5, 'center_y':0.5}
+
+    MDIconButton:
+        icon: "alert-circle"
+        pos_hint: {'center_x':0.3, 'center_y':0.2}
+        on_press: app.show()
+
+    MDIconButton:
+        icon: "arrow-up-drop-circle"
+        pos_hint: {'center_x':0.7, 'center_y':0.2}
+        on_press: app.play()
+
+
+############################ SAVE #######################################
+<SaveScreen>:
+    name: 'save'
+
+    MDIconButton:
+        icon: "home"
+        pos_hint: {'center_x':0.5, 'center_y':0.9}
+        on_press: root.manager.current = 'home'
+
+    MDLabel:
+        text: 'Insert 2 items for category\nfor example:\nFrench -> dog -> chien'
+        halign: 'center'
+        pos_hint: {'center_x':0.5, 'center_y':0.8}
+
+    MDFloatLayout:
+
+    	MDTextField:
+	    	id: category
+		    helper_text: "French"
+		    required: True
+		    multiline: False
+		    icon_left: "briefcase-edit"
+		    halign: 'center'
+	        pos_hint: {'center_x':0.5, 'center_y':0.6}
+	        width: 300
+
+	    MDTextField:
+	    	id: left_input
+		    helper_text: "dog"
+		    mode: "rectangle"
+		    required: True
+		    multiline: True
+		    halign: 'center'
+	        pos_hint: {'center_x':0.5, 'center_y':0.4}
+	        width: 300
+
+		MDTextField:
+			id: right_input
+		    helper_text: "chien"
+		    mode: "rectangle"
+		    required: True
+		    multiline: True
+		    halign: 'center'
+	        pos_hint: {'center_x':0.5, 'center_y':0.3}
+	        width: 300
+
+	    MDIconButton:
+	        id: inputxt
+	        icon: "content-save"
+	        pos_hint: {'center_x':0.5, 'center_y':0.1}
+	        on_press: app.save()
+
+
+############################ EDIT #######################################
+<EditScreen>:
+    name: 'edit'
+
+    MDIconButton:
+        icon: "home"
+        pos_hint: {'center_x':0.5, 'center_y':0.9}
+        on_press: root.manager.current = 'home'
+
+    #MDIconButton:
+    #    icon: "db-circle"
+    #    pos_hint: {'center_x':0.5, 'center_y':0.7}
+    #    on_press: root.manager.current = 'home'
+
+    #MDFloatingActionButtonSpeedDial:
+    #    data: app.data
+    #    root_button_anim: True
+
