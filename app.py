@@ -12,6 +12,7 @@ from kivy.metrics import dp
 
 from kivymd.app import MDApp
 from kivymd.uix.datatables import MDDataTable
+from kivymd.uix.button import MDFloatingActionButton
 
 import sqlite3  
 import random
@@ -69,17 +70,22 @@ class App(MDApp):
         table = MDDataTable(column_data=[("",dp(20)), ("",dp(20))], row_data=lst_tuples_rows,
                             size_hint=(0.9, 0.6), pos_hint={'center_x':0.5, 'center_y':0.4},
                             check=True, use_pagination=True, rows_num=20)
-        table.bind(on_check_press=self.checked)
-        table.bind(on_row_press=self.row_checked)
+        table.bind(on_row_press=self.checked)
         self.root.get_screen('edit').add_widget(table)
 
     def checked(self, table, row):
-        print(table)
-        print(row)
+        if row not in self.lst_rows:
+            self.lst_rows.append(row)
+        print(self.lst_rows)
 
-    def row_checked(self, table, row):
-        print(table)
-        print(row)
+    def delete(self):
+        if len(self.lst_rows) > 0:
+            for row in self.lst_rows:
+                left, right = row[0], row[1]
+                q = f"DELETE FROM SAVED WHERE left=='{left}' AND right=='{right}'"
+                self.query_db(q)
+
+        #self.edit()       
 
 
 
@@ -98,7 +104,9 @@ class SaveScreen(Screen):
     pass
 
 class EditScreen(Screen):
-    pass
+    def on_enter(self):
+        App.lst_rows = []
+        App.empty_msg = "No rows selected"
 
 
 
