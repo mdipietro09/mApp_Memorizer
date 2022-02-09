@@ -106,43 +106,39 @@ ScreenManager:
         halign: 'center'
         pos_hint: {'center_x':0.5, 'center_y':0.8}
 
-    MDFloatLayout:
+	MDTextField:
+    	id: category
+	    hint_text: "Category"
+        helper_text_mode: "on_error"
+	    required: True
+	    icon_left: "briefcase-edit"
+	    halign: 'center'
+        pos_hint: {'center_x':0.5, 'center_y':0.6}
+        size_hint: (0.5, None)
 
-    	MDTextField:
-	    	id: category
-		    helper_text: "French"
-		    required: True
-		    multiline: False
-		    icon_left: "briefcase-edit"
-		    halign: 'center'
-	        pos_hint: {'center_x':0.5, 'center_y':0.6}
-	        width: 300
+    MDTextField:
+    	id: left_input
+        helper_text_mode: "on_error"
+	    hint_text: "A"
+	    required: True
+	    halign: 'center'
+        pos_hint: {'center_x':0.5, 'center_y':0.45}
+        size_hint: (0.5, None)
 
-	    MDTextField:
-	    	id: left_input
-		    helper_text: "dog"
-		    mode: "rectangle"
-		    required: True
-		    multiline: True
-		    halign: 'center'
-	        pos_hint: {'center_x':0.5, 'center_y':0.4}
-	        width: 300
+	MDTextField:
+		id: right_input
+        helper_text_mode: "on_error"
+	    hint_text: "B"
+	    required: True
+	    halign: 'center'
+        pos_hint: {'center_x':0.5, 'center_y':0.3}
+        size_hint: (0.5, None)
 
-		MDTextField:
-			id: right_input
-		    helper_text: "chien"
-		    mode: "rectangle"
-		    required: True
-		    multiline: True
-		    halign: 'center'
-	        pos_hint: {'center_x':0.5, 'center_y':0.3}
-	        width: 300
-
-	    MDIconButton:
-	        id: inputxt
-	        icon: "content-save"
-	        pos_hint: {'center_x':0.5, 'center_y':0.1}
-	        on_press: app.save()
+    MDIconButton:
+        id: inputxt
+        icon: "content-save"
+        pos_hint: {'center_x':0.5, 'center_y':0.1}
+        on_press: app.save()
 
 
 ############################ EDIT #######################################
@@ -163,10 +159,4 @@ ScreenManager:
         icon: "delete"
         pos_hint: {'center_x':0.7, 'center_y':0.8}
         on_press: app.delete()
-
-    MDLabel:
-        id: empty_msg
-        theme_text_color: "Error"
-        halign: 'center'
-        pos_hint: {'center_x':0.5, 'center_y':0.8}
 
