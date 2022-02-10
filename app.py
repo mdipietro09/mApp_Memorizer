@@ -14,7 +14,7 @@ from kivymd.app import MDApp
 from kivymd.uix.datatables import MDDataTable
 from kivymd.uix.button import MDFloatingActionButton
 from kivymd.uix.dialog import MDDialog
-from kivymd.uix.button import MDFlatButton
+from kivymd.uix.menu import MDDropdownMenu
 
 import sqlite3  
 import random
@@ -86,15 +86,21 @@ class App(MDApp):
 
 
     ## edit
+    def dropdown(self):
+        lst_categories = [i[0] for i in self.query_db(q="SELECT DISTINCT category FROM SAVED", data=True)]
+        items = [{"text":f"{i}", "viewclass":"OneLineListItem"} for i in lst_categories]
+        print(items)
+        self.all_categories = MDDropdownMenu(caller=self.root.get_screen('edit').ids.category_dropdown, items=items, width_mult=4)
+        self.all_categories.open()
+
     def edit(self):
-        category = "1"
+        category = self.root.get_screen('edit').ids.selected_category.text
         q = f"SELECT left,right FROM SAVED WHERE category=={category}"
         lst_tuples_rows = self.query_db(q, data=True)
         table = MDDataTable(column_data=[("",dp(20)), ("",dp(20))], row_data=lst_tuples_rows,
                             size_hint=(0.9, 0.6), pos_hint={'center_x':0.5, 'center_y':0.4},
                             check=True, use_pagination=True, rows_num=20)
         table.bind(on_check_press=self.selected)
-        #table.bind(on_row_press=self.row_checked)
         self.root.get_screen('edit').add_widget(table)
 
     def selected(self, table, row):
@@ -102,9 +108,6 @@ class App(MDApp):
             self.lst_rows.append(row)
         else:
             self.lst_rows.remove(row)
-
-    #def row_checked(self, table, row):
-    #    pass
 
     def delete(self):
         if len(self.lst_rows) > 0:

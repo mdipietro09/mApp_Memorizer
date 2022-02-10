@@ -151,8 +151,14 @@ ScreenManager:
         on_press: root.manager.current = 'home'
 
     MDIconButton:
-        icon: "database"
+        id: category_dropdown
+        icon: "arrow-down-drop-circle"
         pos_hint: {'center_x':0.3, 'center_y':0.8}
+        on_press: app.dropdown()
+
+    MDIconButton:
+        icon: "database"
+        pos_hint: {'center_x':0.5, 'center_y':0.8}
         on_press: app.edit()
 
     MDIconButton:
