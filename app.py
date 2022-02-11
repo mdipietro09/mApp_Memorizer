@@ -50,10 +50,22 @@ class App(MDApp):
 
 
     ## play game
+    def dropdown_play(self):
+        lst_categories = [i[0] for i in self.query_db(q="SELECT DISTINCT category FROM SAVED", data=True)]
+        items = [{"text":f"{i}", 
+                  "viewclass":"OneLineListItem",
+                  "on_release": lambda x=f"{i}": self.set_item(x)
+                  } for i in lst_categories]
+        self.all_categories = MDDropdownMenu(caller=self.root.get_screen('play').ids.category_dropdown_play, items=items, width_mult=4)
+        self.all_categories.open()
+
+    def set_item(self, x):
+        self.category = x
+        self.all_categories.dismiss()
+
     def play(self):
         try:
-            category = "1"
-            q = f"SELECT left,right FROM SAVED WHERE category=={category}"
+            q = f"SELECT left,right FROM SAVED WHERE category=='{self.category}'"
             lst_tuples_rows = self.query_db(q, data=True)
             tupla = random.choice(lst_tuples_rows)
             question, self.answer = tupla[0], tupla[1]
@@ -62,7 +74,7 @@ class App(MDApp):
         
         except Exception as e:
             if "empty" in str(e): 
-                self.alert_dialog("First you need to save something")
+                self.alert_dialog("First you need to save something and select a category to play")
 
     def show(self):
         self.root.get_screen('play').ids.answer.text = self.answer
@@ -86,19 +98,19 @@ class App(MDApp):
 
 
     ## edit
-    def dropdown(self):
+    def dropdown_edit(self):
         lst_categories = [i[0] for i in self.query_db(q="SELECT DISTINCT category FROM SAVED", data=True)]
         items = [{"text":f"{i}", 
                   "viewclass":"OneLineListItem",
                   "on_release": lambda x=f"{i}": self.edit(x)
                   } for i in lst_categories]
-        self.all_categories = MDDropdownMenu(caller=self.root.get_screen('edit').ids.category_dropdown, items=items, width_mult=4)
+        self.all_categories = MDDropdownMenu(caller=self.root.get_screen('edit').ids.category_dropdown_edit, items=items, width_mult=4)
         self.all_categories.open()
 
     def edit(self, category=None):
         self.all_categories.dismiss()
         self.category = category if category is not None else self.category
-        
+
         q = f"SELECT left,right FROM SAVED WHERE category=='{category}'"
         lst_tuples_rows = self.query_db(q, data=True)
         table = MDDataTable(column_data=[("",dp(20)), ("",dp(20))], row_data=lst_tuples_rows,
@@ -133,6 +145,7 @@ class HomeScreen(Screen):
 class PlayScreen(Screen):
     def on_enter(self):
         App.answer = 'Push the right button to start'
+        App.category = ''
 
 class SaveScreen(Screen):
     pass

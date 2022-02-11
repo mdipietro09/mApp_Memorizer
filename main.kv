@@ -69,17 +69,23 @@ ScreenManager:
         pos_hint: {'center_x':0.5, 'center_y':0.9}
         on_press: root.manager.current = 'home'
 
+    MDIconButton:
+        id: category_dropdown_play
+        icon: "database"
+        pos_hint: {'center_x':0.5, 'center_y':0.7}
+        on_press: app.dropdown_play()
+
     MDLabel:
         id: question
-        text: "Push the right button to start\n(left one shows the answer)"
+        text: "Select a category\nPush the right button to start\n(left one shows the answer)"
         halign: 'center'
-        pos_hint: {'center_x':0.5, 'center_y':0.7}
+        pos_hint: {'center_x':0.5, 'center_y':0.5}
 
     MDLabel:
         id: answer
         theme_text_color: "Error"
         halign: 'center'
-        pos_hint: {'center_x':0.5, 'center_y':0.5}
+        pos_hint: {'center_x':0.5, 'center_y':0.4}
 
     MDIconButton:
         icon: "alert-circle"
@@ -151,15 +157,10 @@ ScreenManager:
         on_press: root.manager.current = 'home'
 
     MDIconButton:
-        id: category_dropdown
-        icon: "arrow-down-drop-circle"
-        pos_hint: {'center_x':0.3, 'center_y':0.8}
-        on_press: app.dropdown()
-
-    MDIconButton:
+        id: category_dropdown_edit
         icon: "database"
-        pos_hint: {'center_x':0.5, 'center_y':0.8}
-        on_press: app.edit()
+        pos_hint: {'center_x':0.3, 'center_y':0.8}
+        on_press: app.dropdown_edit()
 
     MDIconButton:
         icon: "delete"
