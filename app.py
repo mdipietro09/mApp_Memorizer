@@ -88,14 +88,18 @@ class App(MDApp):
     ## edit
     def dropdown(self):
         lst_categories = [i[0] for i in self.query_db(q="SELECT DISTINCT category FROM SAVED", data=True)]
-        items = [{"text":f"{i}", "viewclass":"OneLineListItem"} for i in lst_categories]
-        print(items)
+        items = [{"text":f"{i}", 
+                  "viewclass":"OneLineListItem",
+                  "on_release": lambda x=f"{i}": self.edit(x)
+                  } for i in lst_categories]
         self.all_categories = MDDropdownMenu(caller=self.root.get_screen('edit').ids.category_dropdown, items=items, width_mult=4)
         self.all_categories.open()
 
-    def edit(self):
-        category = self.root.get_screen('edit').ids.selected_category.text
-        q = f"SELECT left,right FROM SAVED WHERE category=={category}"
+    def edit(self, category=None):
+        self.all_categories.dismiss()
+        self.category = category if category is not None else self.category
+        
+        q = f"SELECT left,right FROM SAVED WHERE category=='{category}'"
         lst_tuples_rows = self.query_db(q, data=True)
         table = MDDataTable(column_data=[("",dp(20)), ("",dp(20))], row_data=lst_tuples_rows,
                             size_hint=(0.9, 0.6), pos_hint={'center_x':0.5, 'center_y':0.4},
