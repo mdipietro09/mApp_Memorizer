@@ -17,9 +17,6 @@ Xcode opens:
 - change "Display Name"
 - select "Requires full screen"
 - upload and select the App Icons
-
-<br/>
-
 Push build button (if fail, retry to push)
 
 <br/>
