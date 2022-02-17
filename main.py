@@ -26,9 +26,9 @@ class App(MDApp):
     ## basics
     dialog = None
 
-    def alert_dialog(self, error):
+    def alert_dialog(self, txt):
         if not self.dialog:
-            self.dialog = MDDialog(text=error)
+            self.dialog = MDDialog(text=txt)
         self.dialog.open()
         self.dialog = None
 
@@ -68,7 +68,9 @@ class App(MDApp):
             q = f"SELECT left,right FROM SAVED WHERE category=='{self.category}'"
             lst_tuples_rows = self.query_db(q, data=True)
             tupla = random.choice(lst_tuples_rows)
-            question, self.answer = tupla[0], tupla[1]
+            q = random.choice((0,1))
+            a = 1 if q==0 else 0
+            question, self.answer = tupla[q], tupla[a]
             self.root.get_screen('play').ids.question.text = f'{question}'
             self.root.get_screen('play').ids.answer.text = ''
         
@@ -91,6 +93,7 @@ class App(MDApp):
             else:
                 q = f"INSERT INTO SAVED VALUES('{category}','{left}','{right}')"
                 self.query_db(q)
+                self.alert_dialog("Saved")
 
         except Exception as e:
             if "UNIQUE" in str(e):
