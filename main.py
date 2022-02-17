@@ -46,7 +46,7 @@ class App(MDApp):
         self.theme_cls.theme_style = "Light"
         q = "CREATE TABLE if not exists SAVED (category text, left text, right text, unique (category,left,right))"
         self.query_db(q)
-        return Builder.load_file("main.kv")
+        return Builder.load_file("components.kv")
 
 
     ## play game

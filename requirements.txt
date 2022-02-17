@@ -1,2 +1,5 @@
+### python 3.7 env
 kivy==2.0.0
 kivymd==0.104.2
+kivy-ios==1.2.1
+Cython==0.29.27
