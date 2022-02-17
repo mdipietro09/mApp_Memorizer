@@ -17,7 +17,8 @@ Xcode opens:
 - change "Display Name"
 - select "Requires full screen"
 - upload and select the App Icons
-<br/>&nbsp;&nbsp;&nbsp; push build button -> fail, retry, ...
+
+<br/> push build button (if fail, retry to push)
 <br/>&nbsp;&nbsp;&nbsp; if you get pkg error like *ModuleNotFoundError: No module named 'kivymd'*
 ```
 toolchain build pillow
