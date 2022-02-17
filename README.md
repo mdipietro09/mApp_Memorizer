@@ -23,8 +23,8 @@ toolchain update mappmemo-ios/mappmemo.xcodeproj
 ```
 
 if don't see icons:
-	<br/>&nbsp;&nbsp;env.../site-packages/kivy_ios/recipes/sdl2_ttf/__init__.py
-	<br/>&nbsp;&nbsp;version = "2.0.15"
+	<br/>&nbsp;&nbsp;&nbsp; env.../site-packages/kivy_ios/recipes/sdl2_ttf/__init__.py
+	<br/>&nbsp;&nbsp;&nbsp; version = "2.0.15"
 ```
 toolchain clean sdl2_ttf
 toolchain build sdl2_ttf
