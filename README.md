@@ -1,6 +1,6 @@
 # Kivy App for Memorizing stuff
 
-#### Setup for iOS deployment
+### Setup for iOS deployment
 ```
 brew install autoconf automake libtool pkg-config
 brew link libtool
@@ -23,14 +23,18 @@ toolchain update mappmemo-ios/mappmemo.xcodeproj
 ```
 
 if don't see icons:
-<br/>&nbsp;&nbsp;&nbsp; env.../site-packages/kivy_ios/recipes/sdl2_ttf/__init__.py
-<br/>&nbsp;&nbsp;&nbsp; version = "2.0.15"
+<br/>&nbsp;&nbsp;&nbsp; go to env.../site-packages/kivy_ios/recipes/sdl2_ttf/__init__.py
+<br/>&nbsp;&nbsp;&nbsp; change version to 2.0.15
+```
+version = "2.0.15"
+```
+<br/>&nbsp;&nbsp;&nbsp; then run
 ```
 toolchain clean sdl2_ttf
 toolchain build sdl2_ttf
 ```
 
-then in Xcode
-<br/>&nbsp;&nbsp;&nbsp; change "Display Name"
-<br/>&nbsp;&nbsp;&nbsp; select "Requires full screen"
-<br/>&nbsp;&nbsp;&nbsp; upload and select the App Icons
+then in Xcode:
+- change "Display Name"
+- select "Requires full screen"
+- upload and select the App Icons
