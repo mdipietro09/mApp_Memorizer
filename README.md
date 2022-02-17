@@ -39,7 +39,7 @@ toolchain update mappmemo-ios/mappmemo.xcodeproj
 ```
 version = "2.0.15"
 ```
-<br/>&nbsp;&nbsp;&nbsp; then run
+&nbsp;&nbsp;&nbsp; then run
 ```
 toolchain clean sdl2_ttf
 toolchain build sdl2_ttf
