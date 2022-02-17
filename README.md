@@ -24,7 +24,7 @@ Push build button (if fail, retry to push)
 
 <br/>
 
-**If you get pkg error like:**
+**If you get pkg error like**
 <br/>&nbsp;&nbsp;&nbsp; *ModuleNotFoundError: No module named 'kivymd'*
 
 ```
@@ -35,9 +35,9 @@ toolchain update mappmemo-ios/mappmemo.xcodeproj
 
 <br/>
 
-**If when simulator is running don't see icons:**
-<br/>&nbsp;&nbsp;&nbsp; go to env.../site-packages/kivy_ios/recipes/sdl2_ttf/__init__.py
-<br/>&nbsp;&nbsp;&nbsp; change version to 2.0.15
+**If when simulator is running don't see icons**
+<br/>&nbsp;&nbsp;&nbsp; go to *env.../site-packages/kivy_ios/recipes/sdl2_ttf/__init__.py*
+<br/>&nbsp;&nbsp;&nbsp; change *version* to *2.0.15*
 
 ```
 version = "2.0.15"
