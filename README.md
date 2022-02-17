@@ -18,15 +18,20 @@ Xcode opens:
 - select "Requires full screen"
 - upload and select the App Icons
 
-<br/> push build button (if fail, retry to push)
-<br/>&nbsp;&nbsp;&nbsp; if you get pkg error like *ModuleNotFoundError: No module named 'kivymd'*
+<br/>
+Push build button (if fail, retry to push)
+
+<br/> 
+> If you get pkg error like 
+<br/>&nbsp;&nbsp;&nbsp; *ModuleNotFoundError: No module named 'kivymd'*
 ```
 toolchain build pillow
 toolchain pip install kivymd
 toolchain update mappmemo-ios/mappmemo.xcodeproj
 ```
+
 <br/>
-If when simulator is running don't see icons:
+> If when simulator is running don't see icons:
 <br/>&nbsp;&nbsp;&nbsp; go to env.../site-packages/kivy_ios/recipes/sdl2_ttf/__init__.py
 <br/>&nbsp;&nbsp;&nbsp; change version to 2.0.15
 ```
