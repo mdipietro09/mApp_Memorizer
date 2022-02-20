@@ -54,14 +54,15 @@ class App(MDApp):
         lst_categories = [i[0] for i in self.query_db(q="SELECT DISTINCT category FROM SAVED", data=True)]
         items = [{"text":f"{i}", 
                   "viewclass":"OneLineListItem",
-                  "on_release": lambda x=f"{i}": self.set_item(x)
+                  "on_release": lambda x=f"{i}": self.set_item_play(x)
                   } for i in lst_categories]
         self.all_categories = MDDropdownMenu(caller=self.root.get_screen('play').ids.category_dropdown_play, items=items, width_mult=4)
         self.all_categories.open()
 
-    def set_item(self, x):
+    def set_item_play(self, x):
         self.category = x
         self.all_categories.dismiss()
+        self.alert_dialog("Ready to memorize "+self.category)
 
     def play(self):
         try:
@@ -83,17 +84,34 @@ class App(MDApp):
 
 
     ## save
+    def dropdown_save(self):
+        lst_categories = [i[0] for i in self.query_db(q="SELECT DISTINCT category FROM SAVED", data=True)]
+        items = [{"text":f"{i}", 
+                  "viewclass":"OneLineListItem",
+                  "on_release": lambda x=f"{i}": self.set_item_save(x)
+                  } for i in lst_categories]
+        self.all_categories = MDDropdownMenu(caller=self.root.get_screen('save').ids.category_dropdown_save, items=items, width_mult=4)
+        self.all_categories.open()
+
+    def set_item_save(self, x):
+        self.category = x
+        self.all_categories.dismiss()
+        self.root.get_screen('save').ids.category.text = self.category
+
     def save(self):
         try:
-            category = self.root.get_screen('save').ids.category.text
+            self.category = self.root.get_screen('save').ids.category.text if self.category == '' else self.category
             left = self.root.get_screen('save').ids.left_input.text
             right = self.root.get_screen('save').ids.right_input.text
-            if "" in [category.strip(), left.strip(), right.strip()]:
+            if "" in [self.category.strip(), left.strip(), right.strip()]:
                 self.alert_dialog("Fields are required")
             else:
-                q = f"INSERT INTO SAVED VALUES('{category}','{left}','{right}')"
+                q = f"INSERT INTO SAVED VALUES('{self.category}','{left}','{right}')"
                 self.query_db(q)
                 self.alert_dialog("Saved")
+                self.root.get_screen('save').ids.left_input.text = ''
+                self.root.get_screen('save').ids.right_input.text = ''
+                self.category = ''
 
         except Exception as e:
             if "UNIQUE" in str(e):
@@ -151,7 +169,8 @@ class PlayScreen(Screen):
         App.category = ''
 
 class SaveScreen(Screen):
-    pass
+    def on_enter(self):
+        App.category = ''
 
 class EditScreen(Screen):
     def on_enter(self):
