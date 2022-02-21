@@ -65,14 +65,25 @@ class App(MDApp):
         self.all_categories.dismiss()
         self.alert_dialog("Ready to memorize "+self.category)
 
+    def set_shuffle(self):
+        if self.shuffle is False:
+            self.shuffle = True 
+            self.alert_dialog("Shuffle ON")
+        else:
+            self.shuffle = False 
+            self.alert_dialog("Shuffle OFF")
+
     def play(self):
         try:
             q = "SELECT left,right FROM SAVED" if self.category=="All" else f"SELECT left,right FROM SAVED WHERE category=='{self.category}'"
             lst_tuples_rows = self.query_db(q, data=True)
             tupla = random.choice(lst_tuples_rows)
-            q = random.choice((0,1))
-            a = 1 if q==0 else 0
-            question, self.answer = tupla[q], tupla[a]
+            if self.shuffle is True:
+                a = random.choice((0,1))
+                b = 1 if a==0 else 0
+            else:
+                a,b = 0,1
+            question, self.answer = tupla[a], tupla[b]
             self.root.get_screen('play').ids.question.text = f'{question}'
             self.root.get_screen('play').ids.answer.text = ''
         
@@ -168,6 +179,7 @@ class PlayScreen(Screen):
     def on_enter(self):
         App.answer = 'Push the right button to start'
         App.category = 'All'
+        App.shuffle = True
 
 class SaveScreen(Screen):
     def on_enter(self):
