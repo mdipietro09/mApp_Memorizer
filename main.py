@@ -135,9 +135,9 @@ class App(MDApp):
 
         q = f"SELECT left,right FROM SAVED WHERE category=='{category}'"
         lst_tuples_rows = self.query_db(q, data=True)
-        table = MDDataTable(column_data=[("",dp(20)), ("",dp(20))], row_data=lst_tuples_rows,
+        table = MDDataTable(column_data=[("",dp(25)), ("",dp(25))], row_data=lst_tuples_rows,
                             size_hint=(0.9, 0.6), pos_hint={'center_x':0.5, 'center_y':0.4},
-                            check=True, use_pagination=True, rows_num=20)
+                            check=True, use_pagination=True, rows_num=5)
         table.bind(on_check_press=self.selected)
         self.root.get_screen('edit').add_widget(table)
 
@@ -153,7 +153,7 @@ class App(MDApp):
                 left, right = row[0], row[1]
                 q = f"DELETE FROM SAVED WHERE left=='{left}' AND right=='{right}'"
                 self.query_db(q)
-        self.edit()       
+        self.edit(category=self.category)       
 
 
 
