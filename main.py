@@ -52,11 +52,12 @@ class App(MDApp):
     ## play game
     def dropdown_play(self):
         lst_categories = [i[0] for i in self.query_db(q="SELECT DISTINCT category FROM SAVED", data=True)]
+        item_all = [{"text":"All", "viewclass":"OneLineListItem", "on_release": lambda x="All": self.set_item_play(x)}]
         items = [{"text":f"{i}", 
                   "viewclass":"OneLineListItem",
                   "on_release": lambda x=f"{i}": self.set_item_play(x)
                   } for i in lst_categories]
-        self.all_categories = MDDropdownMenu(caller=self.root.get_screen('play').ids.category_dropdown_play, items=items, width_mult=4)
+        self.all_categories = MDDropdownMenu(caller=self.root.get_screen('play').ids.category_dropdown_play, items=item_all+items, width_mult=4)
         self.all_categories.open()
 
     def set_item_play(self, x):
@@ -66,7 +67,7 @@ class App(MDApp):
 
     def play(self):
         try:
-            q = f"SELECT left,right FROM SAVED WHERE category=='{self.category}'"
+            q = "SELECT left,right FROM SAVED" if self.category=="All" else f"SELECT left,right FROM SAVED WHERE category=='{self.category}'"
             lst_tuples_rows = self.query_db(q, data=True)
             tupla = random.choice(lst_tuples_rows)
             q = random.choice((0,1))
