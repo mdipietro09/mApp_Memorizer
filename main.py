@@ -167,7 +167,7 @@ class HomeScreen(Screen):
 class PlayScreen(Screen):
     def on_enter(self):
         App.answer = 'Push the right button to start'
-        App.category = ''
+        App.category = 'All'
 
 class SaveScreen(Screen):
     def on_enter(self):
