@@ -179,7 +179,7 @@ class PlayScreen(Screen):
     def on_enter(self):
         App.answer = 'Push the right button to start'
         App.category = 'All'
-        App.shuffle = True
+        App.shuffle = False
 
 class SaveScreen(Screen):
     def on_enter(self):
